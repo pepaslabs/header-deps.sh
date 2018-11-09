@@ -2,8 +2,6 @@
 
 A "package manager" for single-file C libraries.
 
-## header-deps.txt
+To use this script, list your dependencies in a `header-deps.txt` file in your current directory and then run `header-deps.sh`.
 
-To use this script, create a `header-deps.txt` file in your current directory and then run `header-deps.sh`.
-
-A `header-deps.txt` file is a line-oriented file which lists  
+Depedencies are resolved against [header-libs.txt](https://raw.githubusercontent.com/pepaslabs/header-deps.sh/master/header-libs.txt).  Pull-requests against this file are welcome!
