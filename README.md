@@ -12,3 +12,13 @@ stb_perlin.h
 ```
 
 Depedencies are resolved against [header-libs.txt](https://raw.githubusercontent.com/pepaslabs/header-deps.sh/master/header-libs.txt).  Pull-requests against this file are welcome!
+
+Demo:
+
+```
+$ echo stb.h > header-deps.txt
+$ echo stb_perlin.h >> header-deps.txt
+$ header-deps.sh
+GET https://raw.githubusercontent.com/nothings/stb/master/stb.h
+GET https://raw.githubusercontent.com/nothings/stb/master/stb_perlin.h
+```
