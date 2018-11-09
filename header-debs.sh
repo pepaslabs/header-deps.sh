@@ -21,7 +21,7 @@ while test $deps_line_num -le $deps_line_count
 do
     deps_line=`head -n$deps_line_num header-deps.txt | tail -n1`
 
-    if [ "$deps_line" == "index" ]
+    if [ "$deps_line" == "repo" ]
     then
         deps_line_num=$(( $deps_line_num + 1 ))
         dep_url=`head -n$deps_line_num header-deps.txt | tail -n1`
