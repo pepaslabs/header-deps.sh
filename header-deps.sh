@@ -22,26 +22,27 @@ curl -s $repo_url >> $repo_file
 deps_line_num=1
 while test $deps_line_num -le $deps_line_count
 do
-    dep_pkg=`head -n$deps_line_num header-deps.txt | tail -n1`
+    dep_header=`head -n$deps_line_num header-deps.txt | tail -n1`
     found_dep="no"
 
     repo_line_num=1
     repo_line_count=`wc -l $repo_file | awk '{ print $1 }'`
     while test $repo_line_num -le $repo_line_count
     do
-        repo_pkg=`head -n$repo_line_num $repo_file | tail -n1`
-
-        repo_line_num=$(( $repo_line_num + 1 ))
-        test $repo_line_num -le $repo_line_count \
-            || (echo "Error: malformed repo file." >&2 ; exit 1)
-        repo_pkg_url=`head -n$repo_line_num $repo_file | tail -n1`
-
-        if [ "$dep_pkg" == "$repo_pkg" ]
+        repo_line=`head -n$repo_line_num $repo_file | tail -n1`
+        if [ "`echo $repo_line | head -c4`" == "http" ]
         then
-            echo "GET $repo_pkg_url"
-            curl -s -O $repo_pkg_url
-            found_dep="yes"
-            break
+            base_url=$repo_line
+        else
+            repo_header=$repo_line
+            if [ "$dep_header" == "$repo_header" ]
+            then
+                url="${base_url}${dep_header}"
+                echo "GET $url"
+                curl -s -O $url
+                found_dep="yes"
+                break
+            fi
         fi
         
         repo_line_num=$(( $repo_line_num + 1 ))
