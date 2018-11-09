@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# header-libs.sh: a "package manager" for single-file C libraries.
-# See https://github.com/pepaslabs/header-libs.sh
+# header-deps.sh: a "package manager" for single-file C libraries.
+# See https://github.com/pepaslabs/header-deps.sh
 
 # Copyright 2018 Jason Pepas
 # Released under the terms of the MIT license.
