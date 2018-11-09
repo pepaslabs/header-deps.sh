@@ -22,7 +22,8 @@ curl -s $repo_url >> $repo_file
 deps_line_num=1
 while test $deps_line_num -le $deps_line_count
 do
-    deps_pkg=`head -n$deps_line_num header-deps.txt | tail -n1`
+    dep_pkg=`head -n$deps_line_num header-deps.txt | tail -n1`
+    found_dep="no"
 
     repo_line_num=1
     repo_line_count=`wc -l $repo_file | awk '{ print $1 }'`
@@ -39,10 +40,15 @@ do
         then
             echo "GET $repo_pkg_url"
             curl -s -O $repo_pkg_url
+            found_dep="yes"
+            break
         fi
         
         repo_line_num=$(( $repo_line_num + 1 ))
     done
+
+    test "$found_dep" == "yes" \
+        || (echo "Error: can't find $dep_pkg." >&2 ; exit 1)
 
     deps_line_num=$(( $deps_line_num + 1 ))
 done
